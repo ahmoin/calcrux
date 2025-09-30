@@ -43,7 +43,7 @@ const generateQuestion = (id: string): Question => {
 			return {
 				question: `${num1} × ${num2} = ?`,
 				answer: (num1 * num2).toString(),
-				hint: `Multiply ${firstDigit} by (${firstDigit} + 1) and append ${secondDigit1 * secondDigit2}`,
+				hint: `Multiply ${firstDigit} by (${firstDigit} + 1) and\nappend ${secondDigit1 * secondDigit2} (which we get from ${secondDigit1} * ${secondDigit2})`,
 			};
 		}
 		default:

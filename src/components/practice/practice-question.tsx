@@ -126,7 +126,7 @@ export function PracticeQuestion({
 						</p>
 					)}
 					{showHint && (
-						<p className="text-sm text-muted-foreground text-center">
+						<p className="text-sm text-muted-foreground text-center whitespace-pre-line">
 							💡 {question.hint}
 						</p>
 					)}
