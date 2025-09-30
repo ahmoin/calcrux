@@ -9,13 +9,16 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export function PracticeCard({
 	title,
 	description,
+	id,
 }: {
 	title: string;
 	description: string;
+	id: string;
 }) {
 	return (
 		<Card>
@@ -25,7 +28,9 @@ export function PracticeCard({
 			</CardHeader>
 			<CardContent>
 				<div className="flex items-center gap-2">
-					<Button className="flex-1">Practice</Button>
+					<Button className="flex-1">
+						<Link href={`/practice/${id}`}>Practice</Link>
+					</Button>
 					<Button
 						size="icon"
 						className="size-8 group-data-[collapsible=icon]:opacity-0"

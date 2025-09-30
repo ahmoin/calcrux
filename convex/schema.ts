@@ -15,7 +15,7 @@ const schema = defineSchema({
 		// other "users" fields...
 	})
 		.index("email", ["email"])
-		.index("phone", ["phone"])
+		.index("phone", ["phone"]),
 });
 
 export default schema;
