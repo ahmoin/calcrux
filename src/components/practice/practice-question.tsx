@@ -1,6 +1,9 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -10,6 +13,15 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import {
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 type Question = {
@@ -24,39 +36,40 @@ type PracticeQuestionProps = {
 	onAnswer: (isCorrect: boolean) => void;
 };
 
+const FormSchema = z.object({
+	answer: z.string().min(1, "Answer is required"),
+});
+
 export function PracticeQuestion({
 	question,
 	onNext,
 	onAnswer,
 }: PracticeQuestionProps) {
-	const [userAnswer, setUserAnswer] = React.useState("");
 	const [showHint, setShowHint] = React.useState(false);
 	const [isCorrect, setIsCorrect] = React.useState<boolean | null>(null);
 	const [hasAnswered, setHasAnswered] = React.useState(false);
 
-	const checkAnswer = () => {
-		if (hasAnswered) return;
+	const form = useForm<z.infer<typeof FormSchema>>({
+		resolver: zodResolver(FormSchema),
+		defaultValues: {
+			answer: "",
+		},
+	});
 
-		const correct = userAnswer.trim() === question.answer;
+	function onSubmit(data: z.infer<typeof FormSchema>) {
+		if (hasAnswered) {
+			setShowHint(false);
+			setIsCorrect(null);
+			setHasAnswered(false);
+			form.reset({ answer: "" });
+			onNext();
+			return;
+		}
+		const correct = data.answer.trim() === question.answer;
 		setIsCorrect(correct);
 		setHasAnswered(true);
 		onAnswer(correct);
-	};
-
-	const handleKeyPress = (e: React.KeyboardEvent) => {
-		if (e.key === "Enter") {
-			checkAnswer();
-		}
-	};
-
-	const handleNext = () => {
-		setUserAnswer("");
-		setShowHint(false);
-		setIsCorrect(null);
-		setHasAnswered(false);
-		onNext();
-	};
-
+	}
 	return (
 		<Card className="w-full max-w-md">
 			<CardHeader>
@@ -69,16 +82,40 @@ export function PracticeQuestion({
 			</CardHeader>
 			<CardContent className="space-y-4">
 				<div className="space-y-2">
-					<Input
-						type="text"
-						value={userAnswer}
-						onChange={(e) => setUserAnswer(e.target.value)}
-						onKeyPress={handleKeyPress}
-						placeholder="Your answer..."
-						className="text-center text-xl py-6"
-						autoFocus
-						disabled={isCorrect !== null}
-					/>
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(onSubmit)}
+							className="w-full space-y-6"
+						>
+							<FormField
+								control={form.control}
+								name="answer"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Answer</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+										<FormDescription>Enter your answer.</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<div className="flex space-x-2 w-full">
+								<Button type="submit" className="flex-1">
+									{hasAnswered ? "Next Question" : "Submit"}
+								</Button>
+								<Button
+									type="button"
+									variant="outline"
+									className="flex-1"
+									onClick={() => setShowHint(!showHint)}
+								>
+									{showHint ? "Hide Hint" : "Show Hint"}
+								</Button>
+							</div>
+						</form>
+					</Form>
 					{isCorrect !== null && (
 						<p
 							className={`text-center text-lg ${isCorrect ? "text-green-600" : "text-red-600"}`}
@@ -95,30 +132,7 @@ export function PracticeQuestion({
 					)}
 				</div>
 			</CardContent>
-			<CardFooter className="flex flex-col space-y-2">
-				<div className="flex space-x-2 w-full">
-					<Button
-						variant="outline"
-						className="flex-1"
-						onClick={() => setShowHint(!showHint)}
-					>
-						{showHint ? "Hide Hint" : "Show Hint"}
-					</Button>
-					{hasAnswered ? (
-						<Button className="flex-1" onClick={handleNext}>
-							Next Question
-						</Button>
-					) : (
-						<Button
-							className="flex-1"
-							onClick={checkAnswer}
-							disabled={!userAnswer.trim()}
-						>
-							Check Answer
-						</Button>
-					)}
-				</div>
-			</CardFooter>
+			<CardFooter className="flex justify-center"></CardFooter>
 		</Card>
 	);
 }
