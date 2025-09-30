@@ -28,9 +28,9 @@ export function PracticeCard({
 			</CardHeader>
 			<CardContent>
 				<div className="flex items-center gap-2">
-					<Button className="flex-1">
-						<Link href={`/practice/${id}`}>Practice</Link>
-					</Button>
+					<Link href={`/practice/${id}`} className="flex-1">
+						<Button className="w-full">Practice</Button>
+					</Link>
 					<Button
 						size="icon"
 						className="size-8 group-data-[collapsible=icon]:opacity-0"
