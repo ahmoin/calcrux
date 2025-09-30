@@ -52,26 +52,26 @@ const generateQuestion = (id: string): Question => {
 		case "polynomial-symmetry": {
 			const polynomials = [
 				// Even functions (symmetric about y-axis)
-				{ latex: "x^2", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
-				{ latex: "x^4-2x^2+1", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
-				{ latex: "x^2+3", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
-				{ latex: "-x^4+4x^2", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
+				{ latex: "x^2", answer: "even" },
+				{ latex: "x^4-2x^2+1", answer: "even" },
+				{ latex: "x^2+3", answer: "even" },
+				{ latex: "-x^4+4x^2", answer: "even" },
 				// Odd functions (symmetric about origin)
-				{ latex: "x^3", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
-				{ latex: "x^3-x", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
-				{ latex: "x^5-2x^3", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
-				{ latex: "2x^3+x", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
+				{ latex: "x^3", answer: "odd" },
+				{ latex: "x^3-x", answer: "odd" },
+				{ latex: "x^5-2x^3", answer: "odd" },
+				{ latex: "2x^3+x", answer: "odd" },
 				// Neither
-				{ latex: "x^3+1", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
-				{ latex: "x^2+x", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
-				{ latex: "x^3-x^2+1", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
-				{ latex: "x^4+x", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
+				{ latex: "x^3+1", answer: "neither" },
+				{ latex: "x^2+x", answer: "neither" },
+				{ latex: "x^3-x^2+1", answer: "neither" },
+				{ latex: "x^4+x", answer: "neither" },
 			];
 			const selected = polynomials[Math.floor(Math.random() * polynomials.length)];
 			return {
 				question: "Is this function odd, even, or neither?",
 				answer: selected.answer,
-				hint: selected.hint,
+				hint: "Even functions are symmetric about the y-axis (mirror image). Odd functions are symmetric about the origin (180° rotation). If neither symmetry exists, the function is neither.",
 				graph: {
 					latex: selected.latex,
 				},
