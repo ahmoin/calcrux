@@ -78,6 +78,7 @@ export default function RootLayout({
             `,
 						}}
 					/>
+					<script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 					<meta name="theme-color" content={META_THEME_COLORS.light} />
 				</head>
 				<body

@@ -89,6 +89,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      desmos-react:
+        specifier: ^1.2.0
+        version: 1.2.0(@types/react@19.1.13)(react@19.1.0)(typescript@5.9.2)
       lucide-react:
         specifier: ^0.539.0
         version: 0.539.0(react@19.1.0)
@@ -1243,6 +1246,9 @@ packages:
   '@types/d3-timer@3.0.2':
     resolution: {integrity: sha512-Ps3T8E8dZDam6fUyNiMkekK3XUsaUEik+idO9/YjPtfj2qruF8tFBXS7XhtE4iIXBLxhmLjP3SXpLhVf21I9Lw==}
 
+  '@types/desmos@1.11.0':
+    resolution: {integrity: sha512-bx2VyonCstH0oy9wrBZoFvxV46hiXOD8YcTI6BhNhQg3oERtrcit32p/+06MBiXi3ocNmUr/3kC5B5Sod9vIrg==}
+
   '@types/node@20.19.14':
     resolution: {integrity: sha512-gqiKWld3YIkmtrrg9zDvg9jfksZCcPywXVN7IauUGhilwGV/yOyeUsvpR796m/Jye0zUzMXPKe8Ct1B79A7N5Q==}
 
@@ -1449,6 +1455,18 @@ packages:
   define-properties@1.2.1:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
+
+  desmos-react@1.2.0:
+    resolution: {integrity: sha512-EoLW2/kfBnGTY1l1ZTgnDUwJQCqgrYupwa56hrwYYBNn0m/7cSXzxB7ljBhg6NIwFR9QFGzAlYy7T/LsyVupuA==}
+    peerDependencies:
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+      typescript: '>=4.1.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      typescript:
+        optional: true
 
   detect-libc@2.1.0:
     resolution: {integrity: sha512-vEtk+OcP7VBRtQZ1EJ3bdgzSfBjgnEalLTp5zjJrS+2Z1w2KZly4SBdac/WDU3hhsNAZ9E8SC96ME4Ey8MZ7cg==}
@@ -3230,6 +3248,8 @@ snapshots:
 
   '@types/d3-timer@3.0.2': {}
 
+  '@types/desmos@1.11.0': {}
+
   '@types/node@20.19.14':
     dependencies:
       undici-types: 6.21.0
@@ -3448,6 +3468,14 @@ snapshots:
       define-data-property: 1.1.4
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
+
+  desmos-react@1.2.0(@types/react@19.1.13)(react@19.1.0)(typescript@5.9.2):
+    dependencies:
+      '@types/desmos': 1.11.0
+      react: 19.1.0
+    optionalDependencies:
+      '@types/react': 19.1.13
+      typescript: 5.9.2
 
   detect-libc@2.1.0: {}
 

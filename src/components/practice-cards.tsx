@@ -20,6 +20,11 @@ export function PracticeCards() {
 				id="multiplication-2"
 				description="Multiply two-digit numbers with the same first digit, and second digits that sum to 10"
 			/>
+			<PracticeCard
+				title="Polynomial Symmetry"
+				id="polynomial-symmetry"
+				description="Determine if a polynomial function is odd, even, or neither by analyzing its graph"
+			/>
 		</div>
 	);
 }

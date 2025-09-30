@@ -7,6 +7,9 @@ type Question = {
 	question: string;
 	answer: string;
 	hint: string;
+	graph?: {
+		latex: string;
+	};
 };
 
 type PracticeSessionProps = {
@@ -46,6 +49,34 @@ const generateQuestion = (id: string): Question => {
 				hint: `Multiply ${firstDigit} by (${firstDigit} + 1) and\nappend ${secondDigit1 * secondDigit2} (which we get from ${secondDigit1} * ${secondDigit2})`,
 			};
 		}
+		case "polynomial-symmetry": {
+			const polynomials = [
+				// Even functions (symmetric about y-axis)
+				{ latex: "x^2", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
+				{ latex: "x^4-2x^2+1", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
+				{ latex: "x^2+3", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
+				{ latex: "-x^4+4x^2", answer: "even", hint: "Even functions satisfy f(-x) = f(x). The graph is symmetric about the y-axis." },
+				// Odd functions (symmetric about origin)
+				{ latex: "x^3", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
+				{ latex: "x^3-x", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
+				{ latex: "x^5-2x^3", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
+				{ latex: "2x^3+x", answer: "odd", hint: "Odd functions satisfy f(-x) = -f(x). The graph is symmetric about the origin (180° rotation)." },
+				// Neither
+				{ latex: "x^3+1", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
+				{ latex: "x^2+x", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
+				{ latex: "x^3-x^2+1", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
+				{ latex: "x^4+x", answer: "neither", hint: "This function has no symmetry. It's neither even nor odd." },
+			];
+			const selected = polynomials[Math.floor(Math.random() * polynomials.length)];
+			return {
+				question: "Is this function odd, even, or neither?",
+				answer: selected.answer,
+				hint: selected.hint,
+				graph: {
+					latex: selected.latex,
+				},
+			};
+		}
 		default:
 			return {
 				question: "Select a practice mode",
@@ -81,18 +112,20 @@ export function PracticeSession({ practiceId }: PracticeSessionProps) {
 		.join(" ");
 
 	return (
-		<div className="flex flex-col items-center justify-center p-4">
-			<div className="w-full max-w-md mb-4">
+		<div className="flex flex-col h-full w-full p-4">
+			<div className="w-full mb-4">
 				<h2 className="text-2xl font-bold text-center mb-2">{title}</h2>
 				<div className="w-full pt-2 text-sm text-center text-muted-foreground">
 					Score: {score} / {questionsAttempted} • {percentage}%
 				</div>
 			</div>
-			<PracticeQuestion
-				question={currentQuestion}
-				onAnswer={handleAnswer}
-				onNext={generateNewQuestion}
-			/>
+			<div className="flex-1 flex items-center justify-center">
+				<PracticeQuestion
+					question={currentQuestion}
+					onAnswer={handleAnswer}
+					onNext={generateNewQuestion}
+				/>
+			</div>
 		</div>
 	);
 }
